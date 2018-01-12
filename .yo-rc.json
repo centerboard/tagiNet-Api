@@ -1,0 +1,10 @@
+{
+  "generator-openapi-repo": {
+    "importExistingSpec": false,
+    "name": "tagiNet",
+    "repo": "centerboard/tagiNet-Api",
+    "splitSpec": false,
+    "samples": false,
+    "installSwaggerUI": true
+  }
+}
