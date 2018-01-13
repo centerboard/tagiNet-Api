@@ -5,10 +5,9 @@ swagger: '2.0'
 # You should specify common part of your endpoints in the following format:
 #   <schemes>://<host><basepath>
 schemes:
-  - http # Remove if your API doesn't support HTTP
   - https # Remove if your API donsn't support HTTPS
-host: example.com # Replace with your hostname. You can also specify port e.g. example.com:777
-basePath: /api/v1 # Replace with your basePath. Note: SHOULD begin with '/'.
+host: www.taginet.com # Replace with your hostname. You can also specify port e.g. example.com:777
+basePath: /rest/v1 # Replace with your basePath. Note: SHOULD begin with '/'.
 info:
   # Describe your API here, you can use GFM (https://guides.github.com/features/mastering-markdown) here
   description: |
@@ -132,6 +131,7 @@ paths:
         - main_auth:
           - 'read:users' # for auth2 provide list of scopes here
         - api_key: []
+        - basic_auth: []
       # overwriting default global produces
       produces:
         - application/json
