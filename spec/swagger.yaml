@@ -27,10 +27,9 @@ info:
   # It can be any string but it is better to use semantic versioning: http://semver.org/
   # Warning: OpenAPI require version to be string, but without quotation YAML can recognize it as number.
 
-  title: Example.com # Replace with your API title
-  # Keep it simple. Don't add "API" or verison at the end of the string.
-
-  termsOfService: 'https://example.com/terms/' # [Optional] Replace with an URL to your ToS
+  title: taginet.com # Replace with your API title
+  
+  termsOfService: 'http://www.schul-netz.com/api-policy.html'
   contact:
     email: apiteam@centerboard.ch # [Optional] Replace with your contact email
   license:
@@ -46,17 +45,11 @@ produces:
   # This is a global default. You can OVERWRITE it in each specific operation.
   # Remove the ones not used in your API
   - application/json
-  - application/xml
-  - text/csv
-  # you can add any mime type your API produces to the list
 consumes:
   # List of mime types your API endpoins consumes.
   # This is a global default. You can OVERWRITE it in each specific operation.
   # Remove the ones not supported by your API
   - application/json
-  - application/xml
-  # you can add any mime type your API consumes to the list
-
 # A list of tags used by the specification with additional metadata.
 # The order of the tags can be used to reflect on their order by the parsing tools.
 tags:
