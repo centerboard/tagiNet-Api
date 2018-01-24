@@ -24,8 +24,6 @@ info:
     interfaces have done for lower-level programming, OpenAPI removes the guesswork in calling the service.
 
   version: '1.0.0' # Your API version
-  # It can be any string but it is better to use semantic versioning: http://semver.org/
-  # Warning: OpenAPI require version to be string, but without quotation YAML can recognize it as number.
 
   title: taginet.com # Replace with your API title
   
