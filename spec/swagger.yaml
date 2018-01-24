@@ -133,6 +133,48 @@ securityDefinitions:
       'write:users': modify or remove users
   basic_auth: # security definition name (you can name it as you want)
     type: basic
+responses:
+  response401:
+    description: '401 - Unauthorized: no or wrong user credentials (Client-ID, username, userkey)'
+    schema:
+      $ref: '#/definitions/Error'
+  response403:
+    description: '403 - Forbidden: The client is not allowed to connect to that service'
+    schema:
+      $ref: '#/definitions/Error'
+  response404:
+    description: 404 - Ressource/Object not found
+    schema:
+      $ref: '#/definitions/Error'
+  response429:
+    description: '429 - Too Many Requests: Number of max requests reached. Try again later.'
+    schema:
+      $ref: '#/definitions/Error'
+    headers:
+      X-Rate-Limit-Limit:
+        description: The number of allowed requests in the current period
+        type: integer
+      X-Rate-Limit-Remaining:
+        description: The number of remaining requests in the current period
+        type: integer
+      X-Rate-Limit-Reset:
+        description: The number of seconds left in the current period
+        type: integer
+  responseDefault:
+    description: Unexpected error
+    schema:
+      $ref: '#/definitions/Error'
+    headers:
+      X-Rate-Limit-Limit:
+        description: The number of allowed requests in the current period
+        type: integer
+      X-Rate-Limit-Remaining:
+        description: The number of remaining requests in the current period
+        type: integer
+      X-Rate-Limit-Reset:
+        description: The number of seconds left in the current period
+        type: integer
+
 
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
@@ -229,6 +271,50 @@ paths:
         '404':
           description: User not found
   
+  /me:
+    get:
+      summary: Returns personal student information
+      operationId: meGet
+      tags:
+        - Me
+      responses:
+        '200':
+          description: Personal User-Information
+          schema:
+            $ref: '#/definitions/Taginetuser'
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+          examples:
+            application/json:
+              id: 9
+              idNr: XY01234
+              lastName: MyLastName
+              firstName: MyFirstName
+              gender: male
+              birthday: '1999-09-29'
+              phone: 061 211 00 10
+              mobile: 079 520 01 20
+              email: First.Last@schule.ch
+              emailPrivate: myPrivateMail@hotmail.com
+        '401':
+          $ref: '#/responses/response401'
+        '403':
+          $ref: '#/responses/response403'
+        '404':
+          $ref: '#/responses/response404'
+        '429':
+          $ref: '#/responses/response429'
+        default:
+          $ref: '#/responses/responseDefault'
+
   '/echo':
     post:
       tags:
@@ -291,3 +377,65 @@ definitions:
         example: Smith
       email:
         $ref: '#/definitions/Email'
+  Taginetuser:
+    type: object
+    required:
+      - lastName
+      - firstName
+    properties:
+      id:
+        type: string
+      idNr:
+        type: string
+      lastName:
+        type: string
+      firstName:
+        type: string
+      loginActive:
+        type: boolean
+        default: false
+      gender:
+        type: string
+        enum:
+          - male
+          - female
+      birthday:
+        type: string
+        format: date
+      street:
+        type: string
+      addressLine2:
+        type: string
+        maxLength: 255
+      postOfficeBox:
+        type: string
+        maxLength: 255
+      zip:
+        type: string
+      city:
+        type: string
+      phone:
+        type: string
+        format: phone
+      mobile:
+        type: string
+        format: phone
+      email:
+        type: string
+        format: email
+      emailPrivate:
+        type: string
+        format: email
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: '<ul><li>1001: Technical error while calling the Web Service</li><li>1002: Error while parsing the JSON</li><li>1003: Invalid input</li><li>1004: Database Error while inserting</li><li>1005: Database Error because of duplicate entry</li><li>5001: Invalid offerId</li><li>5002: Inavlid course menu</li></ul>'
+      message:
+        type: string
+      description:
+        type: string
