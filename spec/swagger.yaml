@@ -100,12 +100,6 @@ info:
       * `X-Total-Count` : indicates the total count of datasets for the GET service, with respect to filtering if the corresponding query parameter is set.
       * `Link` : provides links for the navigation through the pages. URLs for the next page (`rel="next"`) and the last page (`rel="last"`) are set if the requested page is not the last. URLs for the first page (`rel="first"`) and the previous page (`rel="previous"`) are set if the requested page is not the first.
 
-    ## Specifiying the semester
-
-    Some properties of some objects are semester-bound, for exmaple the courses of a student. The semester to be used for these properties can be specified by the request parameter `semid`.<br>
-    The provided value has to be a valid `id` of a `semester` object or `all`.<br>
-    If no semester is specified, or the provided value is not valid, the current active semester of the instance will be used.
-
   version: '1.0.0' # Your API version
   title: taginet.com # Replace with your API title
   termsOfService: 'http://www.schul-netz.com/api-policy.html'
@@ -117,14 +111,8 @@ info:
     url: 'https://centerboard.s3.amazonaws.com/CenterboardLogo.jpg'
     backgroundColor: '#FFFFFF'
 produces:
-  # List of mime types your API endpoins can return.
-  # This is a global default. You can OVERWRITE it in each specific operation.
-  # Remove the ones not used in your API
   - application/json
 consumes:
-  # List of mime types your API endpoins consumes.
-  # This is a global default. You can OVERWRITE it in each specific operation.
-  # Remove the ones not supported by your API
   - application/json
 # A list of tags used by the specification with additional metadata.
 # The order of the tags can be used to reflect on their order by the parsing tools.
@@ -188,9 +176,8 @@ paths:
       
       # security schemas applied to this operation
       security:
-        - main_auth:
+        - o_auth:
           - 'read:users' # for auth2 provide list of scopes here
-        - api_key: []
         - basic_auth: []
       # overwriting default global produces
       produces:
@@ -232,7 +219,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
       security:
-        - main_auth:
+        - o_auth:
           - 'write:users'
       responses:
         '200':
@@ -258,7 +245,7 @@ paths:
             type: string
             example: 'Hello world!'
       security:
-        - api_key: []
+        - basic_auth: []
       responses:
         '200':
           description: 'OK'
