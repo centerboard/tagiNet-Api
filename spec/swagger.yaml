@@ -6,38 +6,116 @@ schemes:
 host: www.taginet.com # Replace with your hostname. You can also specify port e.g. example.com:777
 basePath: /rest/v1 # Replace with your basePath. Note: SHOULD begin with '/'.
 info:
-  # Describe your API here, you can use GFM (https://guides.github.com/features/mastering-markdown) here
   description: |
-    This is an **example** API to demontstrate features of OpenAPI specification
+
     # Introduction
-    This specification is intended to to be a good starting point for describint your API in 
-    [OpenAPI/Swagger format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md).
-    It also demonstrates features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) tool and 
-    [ReDoc](https://github.com/Rebilly/ReDoc) documentation engine. So beyond the standard OpenAPI syntax we use a few 
-    [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
-    
-    # OpenAPI Specification
-    The goal of The OpenAPI Specification is to define a standard, language-agnostic interface to REST APIs which
-    allows both humans and computers to discover and understand the capabilities of the service without access to source
-    code, documentation, or through network traffic inspection. When properly defined via OpenAPI, a consumer can 
-    understand and interact with the remote service with a minimal amount of implementation logic. Similar to what
-    interfaces have done for lower-level programming, OpenAPI removes the guesswork in calling the service.
+
+    This document specifies the webservices provided by tagiNet. This API is built using REST principles, which ensures predictable URLs that makes writing applications easy.
+
+    The services are structured by the following categories:
+
+      * __Configuration__ : Interface for the basic configuration of the schtagiNet instance
+      * __Me__ : Interface for retrieving data specific to the user
+      * __Fibu__ : Interface for FiBu
+
+    # Query Parameters Details
+
+    Most GET services support additional query parameters to sort, filter and paginate the list of results.
+
+    ## Sorting
+
+    The result of most GET services can be sorted by any of the corresponding object properties.
+
+      * Sorting order is specified by the left to right order of the properties listed
+      * Sorting direction defaults to ascending and can be changed to descending by using a minus sign (-) prefix on the requested field.
+
+    _Example_ :
+
+    `/rooms?sort=-capacity,token`
+
+    Retrieves a list of rooms in descending order of capacity. Rooms with the same capacity are sorted by the token.
+
+    ## Filtering
+
+    The result of most GET services can be filtered by any of the corresponding object properties.
+
+    A single filter uses the form:
+
+    `property operator expression`
+
+    In this syntax:
+
+      * `property`: the name of the object property to filter on.
+      * `operator` : defines the type of filter match to use. See the list of operators for more details.
+      * `expression` : states the values to be included in or excluded from the results.
+
+    ### Operators
+
+    The operators must be URL-encoded in order to be included in URL query strings.
+
+    All string operations are case insensitive.
+
+    | Operator | URL Encoded Form | Description | Examples |
+    | -------- | ----------- | -------- | -------- |
+    | == | %3D%3D | Equals | Return rooms where the capacity is exactly 50 persons:</br>`/rooms?filter=capacity%3D%3D50`</br>Retun students where the last name is Meier:</br>`/persons/students?filter=lastName%3D%3DMeier` |
+    | != | !%3D | Does not equal | Return rooms where the capacity is not 50 persons:</br>`/rooms?filter=capacity!%3D50`</br>Return students where the last name is not Meier:</br>`/persons/students?filter=lastName!%3DMeier` |
+    | =~ | %3D~ | Equals | Retun students where the last name contains Meier:</br>`/persons/students?filter=lastName%3D~Meier` |
+    | !~ | !~ | Does not equal | Return students where the last name does not conatin Meier:</br>`/persons/students?filter=lastName!~Meier` |
+    | > | %3E | Greater than | Return rooms where the capacity is strictly greater than 50 persons:</br>`/rooms?filter=capacity%3E50` |
+    | < | %3C | Less than | Return rooms where the capacity is strictly less than 50 persons:</br>`/rooms?filter=capacity%3C50` |
+    | >= | %3E%3D | Greater than or equal to | Return rooms where the capacity is 50 persons or more:</br>`/rooms?filter=capacity%3E%3D50` |
+    | < = | %3C%3D | Less than or equal to | Return rooms where the capacity is 50 persons or less:</br>`/rooms?filter=capacity%3C%3D50` |
+
+    ### Expression
+
+      * Characters such as & must be url-encoded in the usual way.
+      * The semicolon and comma must be backslash escaped when they appear in an expression.
+
+    ### Combining filters
+
+    Filters can be combined using `OR` and `AND` boolean logic.
+
+      * `OR`: The `OR` operator is defined using a comma `,`. It takes precedence over the `AND` operator.
+      * `AND`: The `AND` operator is defined using a semi-colon `;`. It is preceded by the `OR` operator.
+
+    _Examples_ :
+
+    Return the rooms with capacity for 15 to 30 persons:
+    `/rooms?filter=capacity%3C%3D15;capacity%3E%3D30`
+
+    Return all students where the first name contains Hans, and the last name is Meier or Meyer:
+    `/perons/students?filter=firstName%3D~Hans;lastName%3D%3DMeier,lastName%3D%3DMeyer`
+
+    ## Pagination
+
+    The result of most GET services can be paginated with the query parameters `per_page` and `page` to limit the number of datasets in the result.
+
+      * `per_page` indicates how many results will be returned.
+      * `page` is used to navigate through the pages, the first page is `1`
+
+    If one of these two parameters is missing, or is not numeric, the unpaginated list of results will be returned.
+
+    If the results are paginated, the response header will contain two additional entries:
+
+      * `X-Total-Count` : indicates the total count of datasets for the GET service, with respect to filtering if the corresponding query parameter is set.
+      * `Link` : provides links for the navigation through the pages. URLs for the next page (`rel="next"`) and the last page (`rel="last"`) are set if the requested page is not the last. URLs for the first page (`rel="first"`) and the previous page (`rel="previous"`) are set if the requested page is not the first.
+
+    ## Specifiying the semester
+
+    Some properties of some objects are semester-bound, for exmaple the courses of a student. The semester to be used for these properties can be specified by the request parameter `semid`.<br>
+    The provided value has to be a valid `id` of a `semester` object or `all`.<br>
+    If no semester is specified, or the provided value is not valid, the current active semester of the instance will be used.
 
   version: '1.0.0' # Your API version
-
   title: taginet.com # Replace with your API title
-  
   termsOfService: 'http://www.schul-netz.com/api-policy.html'
   contact:
-    email: apiteam@centerboard.ch # [Optional] Replace with your contact email
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    name: Centerboard AG
+    email: apiteam@centerboard.ch
+    url: 'http://www.centerboard.ch'
   x-logo:
-    url: 'https://apis.guru/openapi-template/logo.png'
-externalDocs:
-  description: Find out how to create Github repo for your OpenAPI spec.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
+    url: 'https://centerboard.s3.amazonaws.com/CenterboardLogo.jpg'
+    backgroundColor: '#FFFFFF'
 produces:
   # List of mime types your API endpoins can return.
   # This is a global default. You can OVERWRITE it in each specific operation.
@@ -57,19 +135,14 @@ tags:
     description: Operations about user
 # Security scheme definitions that can be used across the specification.
 securityDefinitions:
-  main_auth: # security definition name (you can name it as you want)
+  o_auth: # security definition name (you can name it as you want)
     type: oauth2 # authorization type, one of: oauth2, basic, apiKey
     # the following options are specific to oauth2 type
-    authorizationUrl: 'http://example.com/api/oauth/dialog'
+    authorizationUrl: 'https://www.taginet.com/mandant/authorize'
     flow: implicit
     scopes:
       'read:users': read users info
       'write:users': modify or remove users
-  api_key: # security definition name (you can name it as you want)
-    type: apiKey
-    # The following options are specific to apiKey type
-    in: header # Where API key will be passed: header or query
-    name: api_key # API key paramteer name
   basic_auth: # security definition name (you can name it as you want)
     type: basic
 
