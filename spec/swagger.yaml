@@ -172,7 +172,6 @@ responses:
         description: The number of seconds left in the current period
         type: integer
 
-
 # Holds the relative paths to the individual endpoints. The path is appended to the
 # basePath in order to construct the full URL. 
 paths:
@@ -322,3 +321,4 @@ definitions:
         type: string
       description:
         type: string
+
