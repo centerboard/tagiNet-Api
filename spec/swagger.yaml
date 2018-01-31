@@ -119,8 +119,11 @@ consumes:
 tags:
   - name: Echo
     description: Example echo operations
-  - name: User
-    description: Operations about user
+  - name: Me
+    description: Information about connected user
+  - name: General Accounting
+    description: Read operations for general accounting
+
 # Security scheme definitions that can be used across the specification.
 securityDefinitions:
   o_auth: # security definition name (you can name it as you want)
@@ -301,7 +304,7 @@ paths:
   '/echo':
     post:
       tags:
-        - Echo
+        - Testing
       summary: Echo test
       description: Receive the exact message you've sent
       operationId: echo
@@ -323,16 +326,27 @@ paths:
             'application/json': 'Hello world!'
           schema:
             type: string
-          # docuemnt headers for this repsonse
           headers:
-            X-Rate-Limit: # Header name
-              type: integer # Header value type
-              format: int32 # Header value format
-              description: calls per hour allowed by the user
-            X-Expires-After:
-              type: string
-              format: date-time
-              description: date in UTC when token expires
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer        
+        '401':
+          $ref: '#/responses/response401'
+        '403':
+          $ref: '#/responses/response403'
+        '404':
+          $ref: '#/responses/response404'
+        '429':
+          $ref: '#/responses/response429'
+        default:
+          $ref: '#/responses/responseDefault'      
+
 # An object to hold data types that can be consumed and produced by operations.
 # These data types can be primitives, arrays or models.
 definitions:
