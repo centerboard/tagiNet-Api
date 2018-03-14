@@ -363,11 +363,14 @@ definitions:
       id:
         type: string
         description: hash of technical ID
+        example: "LRzWg"
       nr:
         type: string
         description: Account-number
+        example: "1010"
       name:
         type: string
+        example: "Bankkonto Kantonalbank"
       accounttype:
         type: string
         enum:
@@ -379,12 +382,15 @@ definitions:
         type: boolean
         default: false
         description: Ja, wenn eine Zwischensumme
+        example: false
       balance:
         type: number
         format: double
+        example: 939.35
       balancePreviousYear:
         type: number
         format: double
+        example: 912.10
       budget:
         type: number
         format: double
@@ -397,12 +403,16 @@ definitions:
     properties:
       id:
         type: string
+        examle: "mzK"
       idNr:
         type: string
+        example: 98
       lastName:
         type: string
+        example: "Müller"
       firstName:
         type: string
+        example: "Heinz"
       loginActive:
         type: boolean
         default: false
@@ -414,8 +424,10 @@ definitions:
       birthday:
         type: string
         format: date
+        example: "1999-09-29"
       street:
         type: string
+        example: "Hauptstrasse 1"
       addressLine2:
         type: string
         maxLength: 255
@@ -424,14 +436,18 @@ definitions:
         maxLength: 255
       zip:
         type: string
+        example: "4001"
       city:
         type: string
+        example: "Basel"
       phone:
         type: string
         format: phone
+        example: "061 211 00 10"
       mobile:
         type: string
         format: phone
+        example: "079 711 00 10"
       email:
         $ref: '#/definitions/Email'
       emailPrivate:
