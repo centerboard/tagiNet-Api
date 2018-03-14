@@ -16,7 +16,7 @@ info:
 
       * __Configuration__ : Interface for the basic configuration of the tagiNet instance
       * __Me__ : Interface for retrieving data specific to the user
-      * __General Accounting__ : Interface for general accounting
+      * __GeneralAccounting__ : Interface for general accounting
 
     # Query Parameters Details
 
@@ -121,7 +121,7 @@ tags:
     description: Example echo operations
   - name: Me
     description: Information about connected user
-  - name: General Accounting
+  - name: GeneralAccounting
     description: Read operations for general accounting
 
 # Security scheme definitions that can be used across the specification.
@@ -199,17 +199,6 @@ paths:
             X-Rate-Limit-Reset:
               description: The number of seconds left in the current period
               type: integer
-          examples:
-            application/json:
-              id: 9
-              lastName: MyLastName
-              firstName: MyFirstName
-              gender: male
-              birthday: '1999-09-29'
-              phone: 061 211 00 10
-              mobile: 079 520 01 20
-              email: First.Last@kita.ch
-              emailPrivate: myPrivateMail@hotmail.com
         '401':
           $ref: '#/responses/response401'
         '403':
@@ -226,7 +215,7 @@ paths:
       summary: Returns balance sheet
       operationId: balanceGet
       tags:
-        - GeneralAccouting
+        - GeneralAccounting
       parameters:
         - name: year
           in: path
@@ -266,7 +255,7 @@ paths:
       summary: Returns income statement  
       operationId: incomestatementGet
       tags:
-        - GeneralAccouting
+        - GeneralAccounting
       parameters:
         - name: year
           in: path
@@ -378,6 +367,7 @@ definitions:
           - liability
           - revenue
           - expense
+        example: asset
       sum:
         type: boolean
         default: false
@@ -416,11 +406,13 @@ definitions:
       loginActive:
         type: boolean
         default: false
+        example: true
       gender:
         type: string
         enum:
           - male
           - female
+        example: male
       birthday:
         type: string
         format: date
