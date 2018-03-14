@@ -403,7 +403,7 @@ definitions:
     properties:
       id:
         type: string
-        examle: "mzK"
+        example: "mzK"
       idNr:
         type: string
         example: 98
