@@ -1,0 +1,122 @@
+[
+    {
+      "id": "mKhb",
+      "nr": "1000",
+      "name": "Kasse",
+      "accounttype": "asset",
+      "sum": false,
+      "balance": 125.50,
+      "balancePreviousYear": 220.25,
+      "budget": 0
+    },
+    {
+      "id": "LRzWg",
+      "nr": "1010",
+      "name": "Bankkonto Kantonalbank",
+      "accounttype": "asset",
+      "sum": false,
+      "balance": 939.35,
+      "balancePreviousYear": 912.1,
+      "budget": 0
+    },
+    {
+      "id": "kNmv",
+      "nr": "1020",
+      "name": "Sparkonto UBS",
+      "accounttype": "asset",
+      "sum": false,
+      "balance": 6725.25,
+      "balancePreviousYear": 6210.75,
+      "budget": 0
+    },
+    {
+      "id": "gMju",
+      "nr": "100",
+      "name": "Flüssige Mittel",
+      "accounttype": "asset",
+      "sum": true,
+      "balance": 7790.1,
+      "balancePreviousYear": 7343.1,
+      "budget": 0
+    },
+    {
+      "id": "jUkl",
+      "nr": "10",
+      "name": "Umlaufvermögen",
+      "accounttype": "asset",
+      "sum": true,
+      "balance": 7790.1,
+      "balancePreviousYear": 7343.1,
+      "budget": 0
+    },
+    {
+      "id": "mJkx",
+      "nr": "2000",
+      "name": "Verbindlichkeiten für Material- und Warenaufwand",
+      "accounttype": "liability",
+      "sum": false,
+      "balance": 2345.0,
+      "balancePreviousYear": 2345.0,
+      "budget": 0
+    },
+    {
+      "id": "fHzG",
+      "nr": "2001",
+      "name": "Verbindlichkeiten für Dienstleistungten",
+      "accounttype": "liability",
+      "sum": false,
+      "balance": 101.0,
+      "balancePreviousYear": 99.50,
+      "budget": 0
+    },
+    {
+      "id": "hrTw",
+      "nr": "200",
+      "name": "Verbindlichkeiten aus Lieferungen und Leistungen",
+      "accounttype": "liability",
+      "sum": true,
+      "balance": 2446.0,
+      "balancePreviousYear": 2444.5,
+      "budget": 0
+    },
+    {
+      "id": "rHjK",
+      "nr": "2200",
+      "name": "Geschuldete MWST (Umsatzsteuer)",
+      "accounttype": "liability",
+      "sum": false,
+      "balance": 789.50,
+      "balancePreviousYear": 0,
+      "budget": 0
+    },
+    {
+      "id": "tJMn",
+      "nr": "2206",
+      "name": "Verrechnungssteuer",
+      "accounttype": "liability",
+      "sum": false,
+      "balance": 27.5,
+      "balancePreviousYear": 12.0,
+      "budget": 0
+    },
+    {
+      "id": "uJim",
+      "nr": "220",
+      "name": "Übrige kurzfristige Verbindlichkeiten",
+      "accounttype": "liability",
+      "sum": true,
+      "balance": 817.0,
+      "balancePreviousYear": 12.0,
+      "budget": 0
+    },
+      {
+      "id": "kira",
+      "nr": "20",
+      "name": "Kurzfristiges Fremdkapital",
+      "accounttype": "liability",
+      "sum": true,
+      "balance": 3263.0,
+      "balancePreviousYear": 2456.5,
+      "budget": 0
+    }
+  ]
