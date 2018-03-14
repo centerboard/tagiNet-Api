@@ -371,7 +371,7 @@ definitions:
       sum:
         type: boolean
         default: false
-        description: Ja, wenn eine Zwischensumme
+        description: account is sum?
         example: false
       balance:
         type: number
@@ -384,6 +384,10 @@ definitions:
       budget:
         type: number
         format: double
+      belongsTo:
+        type: string
+        description: Account-number of parent sum
+        example: "100"
 
   Taginetuser:
     type: object
