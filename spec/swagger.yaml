@@ -293,7 +293,7 @@ paths:
   '/config/settings':
     get:
       summary: List settings
-      description: Returns the settings of the schulNetz instance
+      description: Returns the settings of the tagiNet instance
       operationId: configSettingsGet
       tags:
         - Configuration
