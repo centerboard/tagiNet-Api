@@ -290,6 +290,29 @@ paths:
         default:
           $ref: '#/responses/responseDefault'
 
+  '/config/settings':
+    get:
+      summary: List settings
+      description: Returns the settings of the schulNetz instance
+      operationId: configSettingsGet
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: List of configuration values
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Setting'
+        '401':
+          $ref: '#/responses/response401'
+        '403':
+          $ref: '#/responses/response403'
+        '429':
+          $ref: '#/responses/response429'
+        default:
+          $ref: '#/responses/responseDefault'
+
   '/echo':
     post:
       tags:
@@ -448,6 +471,15 @@ definitions:
         $ref: '#/definitions/Email'
       emailPrivate:
         $ref: '#/definitions/Email'
+  Setting:
+    type: object
+    required:
+      - key
+    properties:
+      key:
+        type: string
+      value:
+        type: string
   Error:
     required:
       - code
