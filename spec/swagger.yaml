@@ -347,7 +347,7 @@ paths:
               type: integer
             X-Rate-Limit-Reset:
               description: The number of seconds left in the current period
-              type: integer        
+              type: integer
         '401':
           $ref: '#/responses/response401'
         '403':
@@ -357,17 +357,11 @@ paths:
         '429':
           $ref: '#/responses/response429'
         default:
-          $ref: '#/responses/responseDefault'      
+          $ref: '#/responses/responseDefault'
 
 # An object to hold data types that can be consumed and produced by operations.
 # These data types can be primitives, arrays or models.
 definitions:
-  Email:
-    description: User email address
-    type: string
-    format: email
-    example: john.smith@example.com
-
   Fibuaccount:
     description: Account information
     type: object
@@ -468,9 +462,15 @@ definitions:
         format: phone
         example: "079 711 00 10"
       email:
-        $ref: '#/definitions/Email'
+        description: User email address
+        type: string
+        format: email
+        example: john.smith@example.com
       emailPrivate:
-        $ref: '#/definitions/Email'
+        description: User email address
+        type: string
+        format: email
+        example: john.smith@example.com
   Setting:
     type: object
     required:
