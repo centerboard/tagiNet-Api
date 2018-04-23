@@ -222,6 +222,17 @@ paths:
           description: accounting year
           required: true
           type: integer
+        - name: firstDay
+          in: query
+          description: 'Start date for filtering bookings, will be ignored if not in SQL-Format (YYYY-MM-DD)'
+          required: false
+          type: string
+        - name: lastDay
+          in: query
+          description: 'End date for filtering bookings, will be ignored if not in SQL-Format (YYYY-MM-DD)'
+          required: false
+          type: string
+
       responses:
         '200':
           description: Balance Sheet returns array of accounts (asset and liability accounts)
@@ -262,6 +273,16 @@ paths:
           description: accounting year
           required: true
           type: integer
+        - name: firstDay
+          in: query
+          description: 'Start date for filtering bookings, will be ignored if not in SQL-Format (YYYY-MM-DD)'
+          required: false
+          type: string
+        - name: lastDay
+          in: query
+          description: 'End date for filtering bookings, will be ignored if not in SQL-Format (YYYY-MM-DD)'
+          required: false
+          type: string
       responses:
         '200':
           description: income statement returns array of accounts (revenue and expenses)
