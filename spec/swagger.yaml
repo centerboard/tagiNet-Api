@@ -334,6 +334,53 @@ paths:
         default:
           $ref: '#/responses/responseDefault'
 
+
+  '/parents/info':
+    get:
+      summary: List parent data
+      description: |
+        Returns the personal data of the parent calling this service.
+        If the status is greater than 0, an update has been sent and has not yet been processed (status 1) or is currently beeing processed (status 2).
+      operationId: parentsInfoGet
+      tags:
+        - Parents
+      responses:
+        '200':
+          description: Personal data
+          schema:
+            $ref: '#/definitions/Parent'
+        '401':
+          $ref: '#/responses/response401'
+        '403':
+          $ref: '#/responses/response403'
+        '429':
+          $ref: '#/responses/response429'
+        default:
+          $ref: '#/responses/responseDefault'
+    put:
+      summary: Update the parents data
+      tags:
+        - Parents
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Parent'
+      responses:
+        '200':
+          description: Parent info submitted
+          schema:
+            $ref: '#/definitions/ActionResponse'
+        '401':
+          $ref: '#/responses/response401'
+        '403':
+          $ref: '#/responses/response403'
+        '429':
+          $ref: '#/responses/response429'
+        default:
+          $ref: '#/responses/responseDefault'
+
   '/echo':
     post:
       tags:
@@ -501,6 +548,112 @@ definitions:
         type: string
       value:
         type: string
+
+  ActionResponse:
+    required:
+      - id
+      - status
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+        description: '<ul><li>0: OK</li><li>Exxx: Error</li><li>Wxxx: Warning</li></ul>'
+      message:
+        type: string
+
+  Parent:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        salutation:
+          type: string
+        role:
+          type: string
+        street:
+          type: string
+        zip:
+          type: string
+        city:
+          type: string
+        email:
+          type: string
+        corrspondanceLanguage:
+          type: string
+        motherFirstName:
+          type: string
+        motherLastName:
+          type: string
+        motherBirthday:
+          type: string
+          format: date
+        motherStreet:
+          type: string
+        motherZip:
+          type: string
+        motherCity:
+          type: string
+        motherNationality:
+          type: string
+        motherMobile:
+          type: string
+        motherPhonePrivate:
+          type: string
+        motherEmailPrivate:
+          type: string
+        motherProfession:
+          type: string
+        motherEmployer:
+          type: string
+        motherWorkplace:
+          type: string
+        motherPhoneBusiness:
+          type: string
+        motherEmailBusiness:
+          type: string
+        fatherFirstName:
+          type: string
+        fatherLastName:
+          type: string
+        fatherBirthday:
+          type: string
+          format: date
+        fatherStreet:
+          type: string
+        fatherZip:
+          type: string
+        fatherCity:
+          type: string
+        fatherNationality:
+          type: string
+        fatherMobile:
+          type: string
+        fatherPhonePrivate:
+          type: string
+        fatherEmailPrivate:
+          type: string
+        fatherProfession:
+          type: string
+        fatherEmployer:
+          type: string
+        fatherWorkplace:
+          type: string
+        fatherPhoneBusiness:
+          type: string
+        fatherEmailBusiness:
+          type: string
+        status:
+          type: integer
+
+
   Error:
     required:
       - code
