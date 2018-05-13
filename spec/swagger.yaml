@@ -340,6 +340,7 @@ paths:
       summary: List parent data
       description: |
         Returns the personal data of the parent calling this service.
+
         If the status is greater than 0, an update has been sent and has not yet been processed (status 1) or is currently beeing processed (status 2).
       operationId: parentsInfoGet
       tags:
@@ -359,7 +360,11 @@ paths:
           $ref: '#/responses/responseDefault'
     put:
       summary: Update the parents data
-      tags:
+      description: |
+              Submits an update to the personal data.
+
+              This new update will overwrite an existing update, if that one is not currently beeing reviewd. In that case, the response will contain the status 5001, the new update will not be saved.
+            tags:
         - Parents
       parameters:
         - in: body
