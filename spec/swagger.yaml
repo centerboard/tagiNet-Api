@@ -364,7 +364,7 @@ paths:
               Submits an update to the personal data.
 
               This new update will overwrite an existing update, if that one is not currently beeing reviewd. In that case, the response will contain the status 5001, the new update will not be saved.
-            tags:
+      tags:
         - Parents
       parameters:
         - in: body
